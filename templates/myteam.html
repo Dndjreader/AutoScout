@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    My Team
+{% endblock %}
+
+{% block main %}
+
+    <h2>{{ teamName }}</h2>
+    <img title="{{ teamName }}" class="club-lrg" src="{{ clubLogo }}">
+    <div class="row">
+        <div class="col">
+                <label for="myteam-name">Name:</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="myteam-name" placeholder="Name">
+        </div>
+    </div>
+    <form id="myteam-sort">
+        <div class="row align-items-center justify-content-md-center">
+            <div class="col col-auto">
+                <label for="sort-myteam">Sort by:</label>
+                <select id="sort-myteam" class="form-select sort-myteam" name="sort-myteam">
+                    <option disabled value="" selected></option>
+                    <option value="name">Name</option>
+                    <option value="overall">Overall</option>
+                    <option value="potential">Potential</option>
+                    <option value="value_eur">Value</option>
+                    <option value="wage_eur">Wage</option>
+                </select>
+            </div>
+            <div class="col col-auto">
+                <label for="asc-myteam">Order:</label>
+                <select id="asc-myteam" class="form-select sort-myteam" name="asc-myteam">
+                    <option value="ASC">Ascending</option>
+                    <option selected value="DESC">Descending</option>
+                </select>
+            </div>
+            <input hidden value="{{ teamName }}" id="teamName">
+        </div>
+    </form>
+    <div class="table-responsive">
+        <table class="table table-hover" id="players">
+            <thead>
+                <tr>
+                    <th class="text-middle">Image</th>
+                    <th class="text-start">Name</th>
+                    <th class="text-middle">Age</th>
+                    <th class="text-middle">Position</th>
+                    <th class="text-middle">Overall</th>
+                    <th class="text-middle">Potential</th> 
+                    <th class="text-middle">Wage</th>
+                    <th class="text-middle">Value</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider align-middle" id="players">
+                {% for player in players %}
+                <tr>
+                    <td class="text-middle"><img class="thumbnail-sml" src="{{ player['player_face_url'] }}"></td>
+                    <td class="text-start">{{ player.short_name }}<p><img title="{{ player.nationality_name }}" class="flag-sml" src="{{ player['nation_flag_url'] }}"></p></td>
+                    <td class="text-middle">{{ player.age }}</td>
+                    <td class="text-middle">{{ player['player_positions'] }}</td>
+                    <td class="text-middle rating">{{ player.overall }}</td>
+                    <td class="text-middle rating">{{ player.potential }}</td>
+                    <td class="text-middle">{{ player['wage'] }}</td>
+                    <td class="text-middle">{{ player['value'] }}</td>
+                    <td class="text-middle"><a href="/playerinfo/{{ player['sofifa_id'] }}">More Info >>></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div id="error"></div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <div class="row align-items-center justify-content-md-center">
+        <div class="col col-6" id="player-img"><img id="mbappe" name="mbappe" src="./static/mbappe&neymar.png"></div> 
+        <div class="col col-lg-3" id="register-form">
+            <form action="/register" method="post">
+                <div class="mb-3">
+                    <input required autocomplete="off" class="form-control mx-auto register" id="username" name="username" placeholder="Username" type="text">
+                    <div id="user-error"></div>
+                </div>
+                <div class="mb-3">
+                    <select required autocomplete="off" class="form-select mx-auto register" id="team-name" name="team-name" placeholder="" type="text">
+                        <option value="" disabled selected hidden>Team Name</option>
+                        {% for team in teams %}
+                        <option value="{{ team['club_name'] }}">{{ team["club_name"] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <input required class="form-control mx-auto register" id="password" name="password" placeholder="Password" type="password">
+                </div>
+                <div class="mb-3">
+                    <input required class="form-control mx-auto register" id="confirmation" name="confirmation" placeholder="Re-Type Password" type="password">
+                    <div id="pass-error"></div>
+                </div>
+                <button class="btn" type="submit" id="register-btn">Sign Up</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

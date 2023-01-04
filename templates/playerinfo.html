@@ -1,0 +1,270 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Player Information
+{% endblock %}
+
+{% block main %}
+    {% for player in playerInfo %}
+        <h1>Player Information</h1>
+        
+
+        <div class="player-info-main col-lg-md-1 m-2"><img class="thumbnail-lg" src="{{ player['player_face_url'] }}"></div>
+
+        <h2 class="playerinfo-name">{{ player['long_name'] }}</h2>
+
+        <button class="watchlist-btn" id="watchlist-btn" value="{{ player['sofifa_id'] }}">Add To My Watch List</button>
+        <div id="added"></div>
+
+        <div id="tabs">
+            <button class="tablinks" id="basicinfo">Basic Info</button>
+            <button class="tablinks" id="attr">Attributes</button>
+            <button class="tablinks" id="value">Value</button>
+        </div>
+
+
+
+
+
+        <div id="basicinfotab" class="tabcontent">
+            <div class="row playerinfo-row top align-items-center justify-content-md-center">
+                <div class="col playercol col-lg-2"><span>{{ player['dob'] }}</span><p class="m-2">Age: {{ player['age'] }}</p></div> 
+                <div class="col playercol col-lg-3">{{ player['short_name'] }}<p><img title="{{ player['nationality_name'] }}" class="flag-sml" src="{{ player['nation_flag_url'] }}"></div>
+                <div class="col playercol col-lg-2"><span>Height: {{ player['height_cm'] }}cm</span><p class="m-2">Weight: {{ player['weight_kg'] }}kg</p></div> 
+            </div>
+            <div class="row playerinfo-row align-items-center justify-content-md-center">
+                <div class="col playercol col-lg-2"><span class="player-info-main">Overall Rating</span><p class="m-2">{{ player['overall'] }}</p></div>
+                <div class="col playercol col-lg-2"><span class="player-info-main">Potential Rating</span><p class="m-2">{{ player['potential'] }}</p></div>
+                <div class="col playercol col-lg-2"><span class="player-info-main">Preferred Foot</span><p class="m-2">{{ player['preferred_foot'] }}</p></div>
+                <div class="col playercol col-lg-2"><span class="player-info-main">Position</span><p class="m-2">{{ player['player_positions'] }}</p></div>
+            </div>
+            <div class="row playerinfo-row align-items-center center">
+                <div class="colplayercol "><span class="player-info-main">Club</span><p class="m-2"><img title="{{ player['club_name'] }}" class="club-sml" src="{{ player['club_logo_url'] }}"> {{ player['club_name'] }}</p></div>
+            </div>
+            <div class="row playerinfo-row bottom align-items-center justify-content-md-center">
+                <div class="col playercol col-lg-3"><span class="player-info-main">Value</span><p class="m-2">{{ player['value'] }}</p></div>
+                <div class="col playercol col-lg-3"><span class="player-info-main">Wage</span><p class="m-2">{{ player['wage'] }}</p></div>
+                <div class="col playercol col-lg-3"><span>Contract Valid Until: {{ player['club_contract_valid_until'] }}</span><p class="m-2">Release Clause: {{ player['release_clause' ]}}</p></div>
+            </div>
+        </div>
+
+
+
+        <div id="attrtab" class="tabcontent">
+            <div class="row playerinfo-row topbottom justify-content-md-center">
+                <div class="col playercol col-lg-2">
+                    <table class="table table-borderless fontwhite">
+                        <tr>
+                            <th class="text-middle">ATTACKING</th>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Crossing:</td>
+                            <td class="text-end stats">{{ player['attacking_crossing'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Finishing:</td>
+                            <td class="text-end stats">{{ player['attacking_finishing'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start m-1">Heading Accuracy:</td>
+                            <td class="text-end stats">{{ player['attacking_heading_accuracy'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Short Passing:</td>
+                            <td class="text-end stats">{{ player['attacking_short_passing'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Volleys:</td>
+                            <td class="text-end stats">{{ player['attacking_volleys'] }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col playercol col-lg-2">
+                    <table class="table table-borderless fontwhite">
+                        <tr>
+                            <th class="text-middle">SKILL</th>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Dribbling:</td>
+                            <td class="text-end stats">{{ player['skill_dribbling'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Curve:</td>
+                            <td class="text-end stats">{{ player['skill_curve'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start m-1">Free-Kick Accuracy:</td>
+                            <td class="text-end stats">{{ player['skill_fk_accuracy'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Long Passing:</td>
+                            <td class="text-end stats">{{ player['skill_long_passing'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Ball Control:</td>
+                            <td class="text-end stats">{{ player['skill_ball_control'] }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col playercol col-lg-2">
+                    <table class="table table-borderless fontwhite">
+                        <tr>
+                            <th class="text-middle">POWER</th>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Shot Power:</td>
+                            <td class="text-end stats">{{ player['power_shot_power'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Jumping:</td>
+                            <td class="text-end stats">{{ player['power_jumping'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start m-1">Stamina:</td>
+                            <td class="text-end stats">{{ player['power_stamina'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Strength:</td>
+                            <td class="text-end stats">{{ player['power_strength'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Long Shots:</td>
+                            <td class="text-end stats">{{ player['power_long_shots'] }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col playercol col-lg-2">
+                    <table class="table table-borderless fontwhite">
+                        <tr>
+                            <th class="text-middle">MENTALITY</th>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Aggression:</td>
+                            <td class="text-end stats">{{ player['mentality_aggression'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Interceptions:</td>
+                            <td class="text-end stats">{{ player['mentality_interceptions'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start m-1">Positioning:</td>
+                            <td class="text-end stats">{{ player['mentality_positioning'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Vision:</td>
+                            <td class="text-end stats">{{ player['mentality_vision'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Penalties:</td>
+                            <td class="text-end stats">{{ player['mentality_penalties'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Composure:</td>
+                            <td class="text-end stats">{{ player['mentality_composure'] }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col playercol col-lg-2">
+                    <table class="table table-borderless fontwhite">
+                        <tr>
+                            <th class="text-middle">DEFENDING</th>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Marking Awareness:</td>
+                            <td class="text-end stats">{{ player['defending_marking_awareness'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Standing Tackle:</td>
+                            <td class="text-end stats">{{ player['defending_standing_tackle'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start m-1">Sliding Tackle:</td>
+                            <td class="text-end stats">{{ player['defending_sliding_tackle'] }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col playercol col-lg-2">
+                    <table class="table table-borderless fontwhite">
+                        <tr>
+                            <th class="text-middle">GOALKEEPING</th>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Diving:</td>
+                            <td class="text-end stats">{{ player['goalkeeping_diving'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Handling:</td>
+                            <td class="text-end stats">{{ player['goalkeeping_handling'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start m-1">Kicking:</td>
+                            <td class="text-end stats">{{ player['goalkeeping_kicking'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Positioning:</td>
+                            <td class="text-end stats">{{ player['goalkeeping_positioning'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Reflexes:</td>
+                            <td class="text-end stats">{{ player['goalkeeping_reflexes'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Speed:</td>
+                            <td class="text-end stats">{{ player['goalkeeping_speed'] }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    
+
+
+        <div id="valuetab" class="tabcontent">
+            
+            <div class="row playerinfo-row topbottom justify-content-md-center">
+                <h3 class="anticpated">Anticipated Values</h3>
+                <div class="linebreak"></div>
+                <div class="col col-lg-4">
+                    <h4>Based On Current Rating</h4>
+                    <div class="row playerinfo-row align-items-center justify-content-md-center">
+                        <div class="col col-lg-2"><span class="player-info-main">Age</span></div>
+                        <div class="col col-lg-2"><span class="player-info-main">Value</span></div>
+                    </div>
+                    {% for player in playerValues %}
+                    <div class="row playerinfo-row align-items-center justify-content-md-center">
+                        <div class="col col-lg-2">{{ player['age'] }}</div>
+                        <div class="col col-lg-2">{{ player['value'] }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="col col-lg-4">
+                    <h4>Based On Potenital Rating</h4>
+                    <div class="row  playerinfo-rowalign-items-center justify-content-md-center">
+                        <div class="col col-lg-2"><span class="player-info-main">Age</span></div>
+                        <div class="col col-lg-2"><span class="player-info-main">Value</span></div>
+                    </div>
+                    {% for player in playerPotential %}
+                    <div class="row playerinfo-row align-items-center justify-content-md-center">
+                        <div class="col col-lg-2">{{ player['age'] }}</div>
+                        <div class="col col-lg-2">{{ player['value'] }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="col col-lg-4">
+                    <h4>Possible Profit/Loss</h4>
+                    <div class="row playerinfo-row align-items-center justify-content-md-center">
+                        <div class="col col-auto"><span class="player-info-main">Value</span></div>
+                    </div>
+                    {% for i in valueLength %}
+                    <div class="row playerinfo-row align-items-center justify-content-md-center">
+                        <div class="col col-auto">{{ valueChange[i] }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

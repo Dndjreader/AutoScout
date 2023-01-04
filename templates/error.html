@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Error
+{% endblock %}
+
+{% block main %}
+    <div class="row align-items-center justify-content-md-center">
+        <!-- Prints Error Message -->
+        <div class="col col-lg-4" id="error-grid">
+            <h1 id="error-h1">There was a problem...</h1>
+            <p id="error-msg">{{ message }}</p>
+            <p><a class="nav-link" id="error-btn" href="javascript:history.back()">Go Back</a></p>
+        </div>
+
+        <div class="col col-lg-4" id="error-img">
+            <img id="gerrard" name="gerrard" src="./static/gerrard.jpg">
+        </div>
+
+    </div>
+{% endblock %}

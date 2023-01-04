@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    My Watch List
+{% endblock %}
+
+{% block main %}
+
+    <h2>My Watch List</h2>
+    <div class="row">
+        <div class="col">
+                <label for="watch-name">Name</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="watch-name" placeholder="Name">
+        </div>
+    </div>
+    <form id="watchform">
+        <div class="row">
+            <div class="col">
+                <label for="watch-league">League:</label>
+                <select id="watch-league" class="form-select league" name="league">
+                    <option value="" disabled selected hidden>League Name</option>
+                    {% for league in leagues %}
+                    <option value="{{ league['league_name'] }}">{{ league["league_name"] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col">
+                <label for="watch-sort">Sort by:</label>
+                <select id="watch-sort" class="form-select sort" name="sort">
+                    <option disabled value="" selected></option>
+                    <option value="name">Name</option>
+                    <option value="overall">Overall</option>
+                    <option value="potential">Potential</option>
+                    <option value="value_eur">Value</option>
+                    <option value="wage_eur">Wage</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="watch-asc">Order:</label>
+                <select id="watch-asc" class="form-select order" name="asc">
+                    <option value="ASC">Ascending</option>
+                    <option selected value="DESC">Descending</option>
+            </select>
+            </div>
+        </div>
+    </form>
+    <div class="table-responsive">
+        <table class="table table-hover" id="players">
+            <thead>
+                <tr>
+                    <th class="text-middle">Image</th>
+                    <th class="text-start">Name</th>
+                    <th class="text-middle">Age</th>
+                    <th class="text-middle">Position</th>
+                    <th class="text-middle">Overall</th>
+                    <th class="text-middle">Potential</th> 
+                    <th class="text-middle">Club</th>
+                    <th class="text-middle">League</th>
+                    <th class="text-middle">Wage</th>
+                    <th class="text-middle">Value</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider align-middle" id="players">
+                {% for player in players %}
+                <tr>
+                    <td class="text-middle"><img class="thumbnail-sml" src="{{ player['player_face_url'] }}"></td>
+                    <td class="text-start">{{ player.short_name }}<p><img title="{{ player.nationality_name }}" class="flag-sml" src="{{ player['nation_flag_url'] }}"></p></td>
+                    <td class="text-middle">{{ player.age }}</td>
+                    <td class="text-middle">{{ player['player_positions'] }}</td>
+                    <td class="text-middle rating">{{ player.overall }}</td>
+                    <td class="text-middle rating">{{ player.potential }}</td>
+                    <td class="text-middle"><img title="{{ player.club_name }}" class="club-sml" src="{{ player['club_logo_url'] }}"> {{ player.club_name }}</td>
+                    <td class="text-middle">{{ player.league_name }}</td>
+                    <td class="text-middle">{{ player['wage'] }}</td>
+                    <td class="text-middle">{{ player['value'] }}</td>
+                    <td class="text-middle"><a href="/playerinfo/{{ player['sofifa_id'] }}">More Info >>></a></td>
+                    <td class="text-middle"><button id="remove-btn" value="{{ player['sofifa_id'] }}">Remove</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
