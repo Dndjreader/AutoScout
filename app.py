@@ -86,6 +86,7 @@ def currency(players):
             pass
     return players
 
+# Load starting page
 @app.route("/getstarted", methods=["GET", "POST"])
 def getStarted():
     """ Getting tarted Page"""
@@ -156,6 +157,7 @@ def register():
         teams = db.execute("SELECT DISTINCT club_name FROM Players ORDER BY league_name DESC, club_name ASC;")
         return render_template("register.html", teams=teams)
 
+# Once logged in load main index page of player database
 @app.route("/", methods=['GET', 'POST'])
 @login_required
 def index():
@@ -164,6 +166,7 @@ def index():
     players = currency(players)
     return render_template("index.html", players=players, leagues=leagues)
 
+# Loads clients own team information
 @app.route("/myteam", methods=['GET', 'POST'])
 @login_required
 def myteam():
@@ -174,6 +177,7 @@ def myteam():
     clubLogo = players[0]['club_logo_url']
     return render_template("myteam.html", players=players, teamName = teamName, clubLogo = clubLogo)
 
+# Sorting function for Ajax for main index database
 @app.route("/playerdatabase", methods=['GET', 'POST'])
 @login_required
 def playerdatabase():  
@@ -193,6 +197,7 @@ def playerdatabase():
     players = currency(players)
     return jsonify({'players': players})
 
+# loads individual data for each player and shows on new page
 @app.route("/playerinfo/<player_id>", methods=['GET', 'POST'])
 @login_required
 def playerinfo(player_id):
@@ -221,6 +226,7 @@ def playerinfo(player_id):
 
     return render_template("playerinfo.html", playerInfo=playerInfo, playerValues=playerValues, playerPotential=playerPotential, valueChange=valueChange, valueLength=range(len(valueChange)))
 
+# Ajax function to call check username and return if username already taken
 @app.route("/usercheck", methods=['GET', 'POST'])
 def usercheck():  
     username = request.args.get('username')
@@ -239,6 +245,7 @@ def logout():
     # Redirect user to login form
     return redirect("/")
 
+# Sort function using Ajax for My Team
 @app.route("/myteamdata", methods=['GET', 'POST'])
 @login_required
 def myteamdata():  
@@ -255,6 +262,7 @@ def myteamdata():
     players = currency(players)
     return jsonify({'players': players})
 
+# Loads client watchlist
 @app.route("/watchlist", methods=['GET', 'POST'])
 @login_required
 def watchlist():
@@ -263,6 +271,7 @@ def watchlist():
     players = currency(players)
     return render_template("watchlist.html", players=players, leagues=leagues)
 
+# Ajax function ofr watchlist button to add to wishlist
 @app.route("/addwatchlist", methods=['GET', 'POST'])
 @login_required
 def addwatchlist():
@@ -274,6 +283,7 @@ def addwatchlist():
         db.execute("INSERT INTO Watchlist (sofifa_id, userid) VALUES(:sofifa_id, :userid);", sofifa_id=playerId, userid=session["user_id"])
         return "Added"
 
+# Removes player from clients watchlist, using Ajax
 @app.route("/removewatchlist", methods=['GET', 'POST'])
 @login_required
 def removewatchlist():
@@ -283,6 +293,7 @@ def removewatchlist():
     players = currency(players)
     return jsonify({'players': players})
 
+# Sorts Watchlist data
 @app.route("/watchlistData", methods=['GET', 'POST'])
 @login_required
 def watchlistData():  
